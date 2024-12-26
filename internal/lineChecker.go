@@ -60,60 +60,73 @@ func binHandler(line string) string {
 }
 
 func upHandler(line string) string {
+	var ret string
+
 	index := strings.Index(line, "(up")
 	for index != -1 {
 		err, rep, rm := parsFlag(line, "up", index)
 		if err {
 			fmt.Println("Error: up syntax!!")
+			ret = ret + line[0:index+3]
+			line = line[index+3:]
 		} else {
-			for ;rep != 0; rep-- {
+			for ; rep != 0; rep-- {
 				word, start := pkg.PreviousWord(line, index)
-				line = pkg.ReplaceAtIndex(line, word, strings.ToUpper(word) , start)
+				line = pkg.ReplaceAtIndex(line, word, strings.ToUpper(word), start)
 				line = strings.Replace(line, rm, "", 1)
 				index = start
 			}
 		}
 		index = strings.Index(line, "(up")
 	}
-	return line
+	return ret+line
 }
 
 func lowHandler(line string) string {
+	var ret string
+
 	index := strings.Index(line, "(low")
 	for index != -1 {
 		err, rep, rm := parsFlag(line, "low", index)
 		if err {
 			fmt.Println("Error: low syntax!!")
+			ret = ret + line[0:index+3]
+			line = line[index+3:]
 		} else {
-			for ;rep != 0; rep-- {
+			for ; rep != 0; rep-- {
 				word, start := pkg.PreviousWord(line, index)
-				line = pkg.ReplaceAtIndex(line, word, strings.ToLower(word) , start)
+				line = pkg.ReplaceAtIndex(line, word, strings.ToLower(word), start)
 				line = strings.Replace(line, rm, "", 1)
 				index = start
 			}
 		}
 		index = strings.Index(line, "(low")
 	}
-	return line
+	return ret+line
+
 }
 
-func capHandler(line string) string { //FIXME:
+func capHandler(line string) string {
+	var ret string
+
 	index := strings.Index(line, "(cap")
 	for index != -1 {
 		err, rep, rm := parsFlag(line, "cap", index)
 		if err {
 			fmt.Println("Error: cap syntax!!")
+			ret = ret + line[0:index+3]
+			line = line[index+3:]
 		} else {
-			for ;rep != 0; rep-- {
+			for ; rep != 0; rep-- {
 				word, start := pkg.PreviousWord(line, index)
-				line = pkg.ReplaceAtIndex(line, word, pkg.CapWord(word) , start)
+				line = pkg.ReplaceAtIndex(line, word, pkg.CapWord(word), start)
 				line = strings.Replace(line, rm, "", 1)
 				index = start
 			}
 		}
 		index = strings.Index(line, "(cap")
 	}
-	return line
+	return ret+line
 }
 
 func punctuationsHandler(line string) string { //FIXME:
