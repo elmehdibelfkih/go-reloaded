@@ -15,8 +15,9 @@ func HandelLine(input *os.File, output *os.File) {
 		line := scanner.Text()
 		line = hexHandler(line)
 		line = binHandler(line)
-		line = upHandler(line)
+		line = upHandler(line) // FIXME: 
 		line = lowHandler(line)
+		line = upHandler(line)
 		line = capHandler(line)
 		line = punctuationsHandler(line)
 		output.WriteString(line + "\n")
@@ -66,7 +67,6 @@ func upHandler(line string) string {
 	for index != -1 {
 		err, rep, rm := parsFlag(line, "up", index)
 		if err {
-			fmt.Println("Error: up syntax!!")
 			ret = ret + line[0:index+3]
 			line = line[index+3:]
 		} else {
@@ -89,7 +89,6 @@ func lowHandler(line string) string {
 	for index != -1 {
 		err, rep, rm := parsFlag(line, "low", index)
 		if err {
-			fmt.Println("Error: low syntax!!")
 			ret = ret + line[0:index+3]
 			line = line[index+3:]
 		} else {
@@ -113,7 +112,6 @@ func capHandler(line string) string {
 	for index != -1 {
 		err, rep, rm := parsFlag(line, "cap", index)
 		if err {
-			fmt.Println("Error: cap syntax!!")
 			ret = ret + line[0:index+3]
 			line = line[index+3:]
 		} else {

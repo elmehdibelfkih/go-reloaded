@@ -8,6 +8,10 @@ import (
 
 func main() {
 	filesName := os.Args[1:]
+	if len(filesName) != 2 {
+		fmt.Println("Error: to many args")
+		return
+	}
 	input, err := os.Open(filesName[0])
 	if err != nil {
 		fmt.Println("Error:", err)
