@@ -19,3 +19,9 @@ func PreviousWord(line string, index int) (string, int) {
 func ReplaceAtIndex(line string, old string, new string,index int) string {
 	return line[0:index] + new + line[index + len(old):]
 }
+
+func CapWord(word string) string {
+	new := []rune(strings.ToLower(word))
+	new[0] = rune(strings.ToUpper(string(new[0]))[0])
+	return string(new)
+}
