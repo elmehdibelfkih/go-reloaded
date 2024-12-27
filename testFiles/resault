@@ -2,3 +2,28 @@ It was the best of times, it was the worst of TIMES, it was the age of wisdom, I
 Simply add 66 and 2 and you will see the result is 68.
 There is no greater agony than bearing an untold story inside you.
 Punctuation tests are... kinda boring, what do you think?
+
+
+func orderReplace(line string) string {
+	up := IndexValideFlag(line, "(up")
+	low := IndexValideFlag(line, "(low")
+	cap := IndexValideFlag(line, "(cap")
+
+	for up != -1 || low != -1 || cap != -1 {
+		if up != -1 && (up <= low || low == -1) && (up <= cap || cap == -1) {
+			line = flagHandler(line, up, "up", strings.ToUpper)
+		} else if low != -1 && (low <= up || up == -1) && (low <= cap || cap == -1) {
+			line = flagHandler(line, up, "low", strings.ToLower)
+
+		} else if cap != -1 {
+			line = flagHandler(line, up, "cap", pkg.CapWord)
+		}
+		line = hexHandler(line)
+		line = binHandler(line)
+		up = IndexValideFlag(line, "(up")
+		low = IndexValideFlag(line, "(low")
+		cap = IndexValideFlag(line, "(cap")
+
+	}
+	return line
+}

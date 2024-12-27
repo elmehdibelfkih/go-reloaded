@@ -13,12 +13,9 @@ func HandelLine(input *os.File, output *os.File) {
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		line := scanner.Text()
-		line = hexHandler(line)
-		line = binHandler(line)
-		line = upHandler(line) // FIXME: 
-		line = lowHandler(line)
-		line = upHandler(line)
-		line = capHandler(line)
+		line = hexHandler(line)   // FIXME:
+		line = binHandler(line)   // FIXME:
+		line = orderReplace(line) // TODO:
 		line = punctuationsHandler(line)
 		output.WriteString(line + "\n")
 	}
@@ -60,71 +57,48 @@ func binHandler(line string) string {
 	return line
 }
 
-func upHandler(line string) string {
-	var ret string
-
-	index := strings.Index(line, "(up")
-	for index != -1 {
-		err, rep, rm := parsFlag(line, "up", index)
-		if err {
-			ret = ret + line[0:index+3]
-			line = line[index+3:]
-		} else {
-			for ; rep != 0; rep-- {
-				word, start := pkg.PreviousWord(line, index)
-				line = pkg.ReplaceAtIndex(line, word, strings.ToUpper(word), start)
-				line = strings.Replace(line, rm, "", 1)
-				index = start
-			}
-		}
-		index = strings.Index(line, "(up")
+func upHandler(line string, index int) string {
+	_, rep, rm := parsFlag(line, "up", index)
+	for ; rep != 0; rep-- {
+		word, start := pkg.PreviousWord(line, index)
+		line = pkg.ReplaceAtIndex(line, word, strings.ToUpper(word), start)
+		line = strings.Replace(line, rm, "", 1)
+		index = start
 	}
-	return ret+line
+	return line
 }
 
-func lowHandler(line string) string {
-	var ret string
-
-	index := strings.Index(line, "(low")
-	for index != -1 {
-		err, rep, rm := parsFlag(line, "low", index)
-		if err {
-			ret = ret + line[0:index+3]
-			line = line[index+3:]
-		} else {
-			for ; rep != 0; rep-- {
-				word, start := pkg.PreviousWord(line, index)
-				line = pkg.ReplaceAtIndex(line, word, strings.ToLower(word), start)
-				line = strings.Replace(line, rm, "", 1)
-				index = start
-			}
-		}
-		index = strings.Index(line, "(low")
+func lowHandler(line string, index int) string {
+	_, rep, rm := parsFlag(line, "low", index)
+	for ; rep != 0; rep-- {
+		word, start := pkg.PreviousWord(line, index)
+		line = pkg.ReplaceAtIndex(line, word, strings.ToLower(word), start)
+		line = strings.Replace(line, rm, "", 1)
+		index = start
 	}
-	return ret+line
-
+	return line
 }
 
-func capHandler(line string) string {
-	var ret string
-
-	index := strings.Index(line, "(cap")
-	for index != -1 {
-		err, rep, rm := parsFlag(line, "cap", index)
-		if err {
-			ret = ret + line[0:index+3]
-			line = line[index+3:]
-		} else {
-			for ; rep != 0; rep-- {
-				word, start := pkg.PreviousWord(line, index)
-				line = pkg.ReplaceAtIndex(line, word, pkg.CapWord(word), start)
-				line = strings.Replace(line, rm, "", 1)
-				index = start
-			}
-		}
-		index = strings.Index(line, "(cap")
+func capHandler(line string, index int) string {
+	_, rep, rm := parsFlag(line, "cap", index)
+	for ; rep != 0; rep-- {
+		word, start := pkg.PreviousWord(line, index)
+		line = pkg.ReplaceAtIndex(line, word, pkg.CapWord(word), start)
+		line = strings.Replace(line, rm, "", 1)
+		index = start
 	}
-	return ret+line
+	return line
+}
+
+func flagHandler(line string, index int, mode string, opp func(string) string) string {
+	_, rep, rm := parsFlag(line, mode, index)
+	for ; rep != 0; rep-- {
+		word, start := pkg.PreviousWord(line, index)
+		line = pkg.ReplaceAtIndex(line, word, opp(word), start)
+		line = strings.Replace(line, rm, "", 1)
+		index = start
+	}
+	return line
 }
 
 func punctuationsHandler(line string) string { //FIXME:
