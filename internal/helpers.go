@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"go-reloaded/pkg"
 	"strconv"
 	"strings"
 )
@@ -35,7 +36,7 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 	if strings.Contains(flag, ",") {
 		flag = strings.TrimLeft(flag, ",")
 		rep, err := strconv.ParseInt(flag, 10, 0)
-		if flag == "" || err != nil {
+		if flag == "" || err != nil || rep <= 0 {
 			return true, 0, ""
 		}
 		return false, int(rep), rmv
@@ -43,7 +44,7 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 	return true, 0, ""
 }
 
-func IndexValideFlag(line string, subster string) int {
+func ValideFlagIndex(line string, subster string) int {
 	var ret string
 
 	index := strings.Index(line, subster)
@@ -61,24 +62,25 @@ func IndexValideFlag(line string, subster string) int {
 	}
 	return -1
 }
+
 func orderReplace(line string) string {
-	up := IndexValideFlag(line, "(up")
-	low := IndexValideFlag(line, "(low")
-	cap := IndexValideFlag(line, "(cap")
+	up := ValideFlagIndex(line, "(up")
+	low := ValideFlagIndex(line, "(low")
+	cap := ValideFlagIndex(line, "(cap")
 
 	for up != -1 || low != -1 || cap != -1 {
 		if up != -1 && (up <= low || low == -1) && (up <= cap || cap == -1) {
-			line = upHandler(line, up)
+			line = flagHandler(line, up, "up", strings.ToUpper)
 		} else if low != -1 && (low <= up || up == -1) && (low <= cap || cap == -1) {
-			line = lowHandler(line, low)
+			line = flagHandler(line, low, "low", strings.ToLower)
 		} else if cap != -1 {
-			line = capHandler(line, cap)
+			line = flagHandler(line, cap, "cap", pkg.CapWord)
 		}
-		line = hexHandler(line)
-		line = binHandler(line)
-		up = IndexValideFlag(line, "(up")
-		low = IndexValideFlag(line, "(low")
-		cap = IndexValideFlag(line, "(cap")
+		line = binHexHandler(line, "(bin)", 2)
+		line = binHexHandler(line, "(hex)", 16)
+		up = ValideFlagIndex(line, "(up")
+		low = ValideFlagIndex(line, "(low")
+		cap = ValideFlagIndex(line, "(cap")
 
 	}
 	return line
