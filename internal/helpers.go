@@ -23,7 +23,7 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 		}
 	}
 	if end == 0 {
-		return false, 0, ""
+		return true, 0, ""
 	}
 	flag := line[0 : end+1]
 	rmv := flag

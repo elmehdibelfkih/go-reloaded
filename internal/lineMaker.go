@@ -109,7 +109,7 @@ func anHandler(line string) string {
 	for i := 0; i < len(line); i++ {
 		if line[i] == 'a' || line[i] == 'A' {
 			if i != len(line) - 2 && strings.Contains(`.!?,:; `, string(line[i+1])) {
-				if i != 0 && strings.Contains(`.!?,:; `, string(line[i-1])) {
+				if i == 0 || (i != 0 && strings.Contains(`.!?,:; `, string(line[i-1]))) {
 					if strings.Contains(`aeiouAEIOUhH`, string(pkg.NextWord(i + 1, line)[0])) {
 						if line[i] == 'a' {
 							line = pkg.ReplaceAtIndex(line, "a", "an", i)
