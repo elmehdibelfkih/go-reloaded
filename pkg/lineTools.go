@@ -32,11 +32,11 @@ func CapWord(word string) string {
 func NextWord(index int, line string) string {
 	runes := []rune(line)
 
-	for index != len(runes) - 1 && strings.Contains(`.!?,:; `, string(runes[index])) {
+	for index != len(runes)-1 && strings.Contains(`.!?,:; `, string(runes[index])) {
 		index++
 	}
 	i := index
-	for i != len(runes) - 1 && !strings.Contains(`.!?,:; `, string(runes[i])) {
+	for i != len(runes)-1 && !strings.Contains(`.!?,:; `, string(runes[i])) {
 		i++
 	}
 	return line[index:i]

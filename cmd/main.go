@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"go-reloaded/internal"
+	"os"
 )
 
 func main() {
