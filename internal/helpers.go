@@ -27,9 +27,11 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 	}
 	flag := line[0 : end+1]
 	rmv := flag
+	println("flag 1:", flag)
 	flag = strings.Replace(flag, " ", "", -1)
 	flag = strings.TrimLeft(flag, "("+mode)
 	flag = strings.TrimRight(flag, ")")
+	println("flag 2:", flag)
 	if flag == "" {
 		return false, 1, rmv
 	}
@@ -81,7 +83,6 @@ func orderReplace(line string) string {
 		up = ValideFlagIndex(line, "(up")
 		low = ValideFlagIndex(line, "(low")
 		cap = ValideFlagIndex(line, "(cap")
-
 	}
 	return line
 }

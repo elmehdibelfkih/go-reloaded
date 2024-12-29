@@ -43,6 +43,7 @@ func binHexHandler(line string, mode string, base int) string {
 
 func flagHandler(line string, index int, mode string, opp func(string) string) string {
 	_, rep, rm := parsFlag(line, mode, index)
+
 	for ; rep != 0; rep-- {
 		word, start := pkg.PreviousWord(line, index)
 		line = pkg.ReplaceAtIndex(line, word, opp(word), start)
@@ -108,7 +109,7 @@ func quoteHandler(line string) string {
 func anHandler(line string) string {
 	for i := 0; i < len(line); i++ {
 		if line[i] == 'a' || line[i] == 'A' {
-			if i != len(line) - 2 && strings.Contains(`.!?,:; `, string(line[i+1])) {
+			if i != len(line) - 1 && strings.Contains(`.!?,:; `, string(line[i+1])) {
 				if i == 0 || (i != 0 && strings.Contains(`.!?,:; `, string(line[i-1]))) {
 					if strings.Contains(`aeiouAEIOUhH`, string(pkg.NextWord(i + 1, line)[0])) {
 						if line[i] == 'a' {
