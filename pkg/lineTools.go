@@ -28,3 +28,16 @@ func CapWord(word string) string {
 	new[0] = rune(strings.ToUpper(string(new[0]))[0])
 	return string(new)
 }
+
+func NextWord(index int, line string) string {
+	runes := []rune(line)
+
+	for index != len(runes) - 1 && strings.Contains(`.!?,:; `, string(runes[index])) {
+		index++
+	}
+	i := index
+	for i != len(runes) - 1 && !strings.Contains(`.!?,:; `, string(runes[i])) {
+		i++
+	}
+	return line[index:i]
+}

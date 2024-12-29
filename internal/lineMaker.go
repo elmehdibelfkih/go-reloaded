@@ -2,8 +2,8 @@ package internal
 
 import (
 	"bufio"
-	"go-reloaded/pkg"
 	"fmt"
+	"go-reloaded/pkg"
 	"os"
 	"strconv"
 	"strings"
@@ -18,6 +18,7 @@ func HandelLine(input *os.File, output *os.File) {
 		line = orderReplace(line)
 		line = punctuationsHandler(line)
 		line = quoteHandler(line)
+		line = anHandler(line)
 		output.WriteString(line + "\n")
 	}
 }
@@ -84,7 +85,7 @@ func quoteHandler(line string) string {
 		quoteCounter--
 	}
 	for _, c := range line {
-		if c == '\'' && quoteCounter%2 == 0 && quoteCounter != 0{
+		if c == '\'' && quoteCounter%2 == 0 && quoteCounter != 0 {
 			firstQuote = true
 			ret += string(c)
 			quoteCounter--
@@ -93,7 +94,7 @@ func quoteHandler(line string) string {
 		} else if firstQuote {
 			ret += string(c)
 			firstQuote = false
-		} else if c == '\'' && quoteCounter%2 != 0 && quoteCounter != 0{
+		} else if c == '\'' && quoteCounter%2 != 0 && quoteCounter != 0 {
 			ret = strings.TrimRight(ret, " ")
 			ret += "'"
 			quoteCounter--
@@ -102,4 +103,23 @@ func quoteHandler(line string) string {
 		}
 	}
 	return ret
+}
+
+func anHandler(line string) string {
+	for i := 0; i < len(line); i++ {
+		if line[i] == 'a' || line[i] == 'A' {
+			if i != len(line) - 2 && strings.Contains(`.!?,:; `, string(line[i+1])) {
+				if i != 0 && strings.Contains(`.!?,:; `, string(line[i-1])) {
+					if strings.Contains(`aeiouAEIOUhH`, string(pkg.NextWord(i + 1, line)[0])) {
+						if line[i] == 'a' {
+							line = pkg.ReplaceAtIndex(line, "a", "an", i)
+						} else {
+							line = pkg.ReplaceAtIndex(line, "A", "An", i)
+						}
+					}
+				}
+			}
+		} 
+	}
+	return line
 }
