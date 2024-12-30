@@ -25,17 +25,19 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 	if end == 0 {
 		return true, 0, ""
 	}
+	
 	flag := line[0 : end+1]
 	rmv := flag
-	flag = strings.Replace(flag, " ", "", -1)
-	flag = flag[len(mode)+1:]
+	flag = flag[len(mode)+2:]
 	flag = flag[:len(flag)-1]
 	if flag == "" {
 		return false, 1, rmv
 	}
 	if strings.Contains(flag, ",") {
 		flag = strings.TrimLeft(flag, ",")
+		flag = strings.Replace(flag, " ", "", -1)
 		rep, err := strconv.ParseInt(flag, 10, 0)
+		// println(">>", flag)
 		if flag == "" || err != nil || rep <= 0 {
 			return true, 0, ""
 		}
@@ -49,7 +51,7 @@ func ValideFlagIndex(line string, subster string) int {
 
 	index := strings.Index(line, subster)
 	for index != -1 {
-		err, rep, rm := parsFlag(line, subster[1:], index)
+		err, rep, rm := parsFlag(line, subster[2:], index)
 		_ = rep
 		_ = rm
 		if err {
@@ -64,10 +66,9 @@ func ValideFlagIndex(line string, subster string) int {
 }
 
 func orderReplace(line string) string {
-	up := ValideFlagIndex(line, "(up")
-	low := ValideFlagIndex(line, "(low")
-	cap := ValideFlagIndex(line, "(cap")
-
+	up := ValideFlagIndex(line, " (up")
+	low := ValideFlagIndex(line, " (low")
+	cap := ValideFlagIndex(line, " (cap")
 	for up != -1 || low != -1 || cap != -1 {
 		if up != -1 && (up <= low || low == -1) && (up <= cap || cap == -1) {
 			line = flagHandler(line, up, "up", strings.ToUpper)
@@ -76,11 +77,11 @@ func orderReplace(line string) string {
 		} else if cap != -1 {
 			line = flagHandler(line, cap, "cap", pkg.CapWord)
 		}
-		line = binHexHandler(line, "(bin)", 2)
-		line = binHexHandler(line, "(hex)", 16)
-		up = ValideFlagIndex(line, "(up")
-		low = ValideFlagIndex(line, "(low")
-		cap = ValideFlagIndex(line, "(cap")
+		line = binHexHandler(line, " (bin)", 2)
+		line = binHexHandler(line, " (hex)", 16)
+		up = ValideFlagIndex(line, " (up")
+		low = ValideFlagIndex(line, " (low")
+		cap = ValideFlagIndex(line, " (cap")
 	}
 	return line
 }

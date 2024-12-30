@@ -13,8 +13,8 @@ func HandelLine(input *os.File, output *os.File) {
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		line := scanner.Text()
-		line = binHexHandler(line, "(bin)", 2)
-		line = binHexHandler(line, "(hex)", 16)
+		line = binHexHandler(line, " (bin)", 2)
+		line = binHexHandler(line, " (hex)", 16)
 		line = orderReplace(line)
 		line = anHandler(line)
 		line = punctuationsHandler(line)
@@ -111,7 +111,8 @@ func anHandler(line string) string {
 		if line[i] == 'a' || line[i] == 'A' {
 			if i != len(line)-1 && strings.Contains(`.!?,:; `, string(line[i+1])) {
 				if i == 0 || (i != 0 && strings.Contains(`.!?,:; `, string(line[i-1]))) {
-					next := pkg.NextWord(i, line)
+					next := pkg.NextWord(i+1, line)
+					println(next)
 					if next != "" && strings.Contains(`aeiouAEIOUhH`, string(next[0])) {
 						if line[i] == 'a' {
 							line = pkg.ReplaceAtIndex(line, "a", "an", i)
