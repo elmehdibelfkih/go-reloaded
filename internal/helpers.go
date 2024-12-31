@@ -37,7 +37,6 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 		flag = strings.TrimLeft(flag, ",")
 		flag = strings.Replace(flag, " ", "", -1)
 		rep, err := strconv.ParseInt(flag, 10, 0)
-		// println(">>", flag)
 		if flag == "" || err != nil || rep <= 0 {
 			return true, 0, ""
 		}
@@ -51,9 +50,7 @@ func ValideFlagIndex(line string, subster string) int {
 
 	index := strings.Index(line, subster)
 	for index != -1 {
-		err, rep, rm := parsFlag(line, subster[2:], index)
-		_ = rep
-		_ = rm
+		err, _, _ := parsFlag(line, subster[2:], index)
 		if err {
 			ret = ret + line[0:index+3]
 			line = line[index+3:]
