@@ -60,14 +60,18 @@ func punctuationsHandler(line string) string {
 	for _, c := range line {
 		if strings.Contains(`.!?,:;`, string(c)) {
 			ret = strings.TrimRight(ret, " ")
-			ret += string(c) + " "
+			ret += string(c)
 			isPunctuation = true
 		} else {
 			if c == ' ' && isPunctuation {
 				continue
 			} else {
+				if isPunctuation {
+					isPunctuation = false
+					ret += " "
+				}
 				ret += string(c)
-				isPunctuation = false
+				
 			}
 		}
 	}
@@ -76,7 +80,7 @@ func punctuationsHandler(line string) string {
 
 func quoteHandler(line string) string {
 	var ret string
-	var firstQuote bool
+	var firstQuote bool = true
 
 	quoteCounter := strings.Count(line, `'`)
 	if quoteCounter < 2 {
@@ -85,21 +89,24 @@ func quoteHandler(line string) string {
 	if quoteCounter%2 != 0 {
 		quoteCounter--
 	}
+
 	for _, c := range line {
-		if c == '\'' && quoteCounter%2 == 0 && quoteCounter != 0 {
+		if c == '\'' && quoteCounter%2 == 0 {
 			firstQuote = true
-			ret += string(c)
 			quoteCounter--
+			ret += string(c)
 		} else if c == ' ' && firstQuote {
 			continue
-		} else if firstQuote {
-			ret += string(c)
-			firstQuote = false
-		} else if c == '\'' && quoteCounter%2 != 0 && quoteCounter != 0 {
+		} else if c == '\'' && quoteCounter%2 != 0 {
 			ret = strings.TrimRight(ret, " ")
 			ret += "'"
 			quoteCounter--
+			firstQuote = false
+		} else if firstQuote {
+			ret += string(c)
+			firstQuote = false
 		} else {
+			firstQuote = false
 			ret += string(c)
 		}
 	}
