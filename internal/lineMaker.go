@@ -80,7 +80,7 @@ func punctuationsHandler(line string) string {
 
 func quoteHandler(line string) string {
 	var ret string
-	var firstQuote bool = true
+	var firstQuote bool
 
 	quoteCounter := strings.Count(line, `'`)
 	if quoteCounter < 2 {

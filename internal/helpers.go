@@ -25,7 +25,7 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 	if end == 0 {
 		return true, 0, ""
 	}
-	
+
 	flag := line[0 : end+1]
 	rmv := flag
 	flag = flag[len(mode)+2:]
@@ -34,6 +34,9 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 		return false, 1, rmv
 	}
 	if strings.Contains(flag, ",") {
+		if strings.Count(flag, ",") != 1 {
+			return true, 0, ""
+		}
 		flag = strings.TrimLeft(flag, ",")
 		flag = strings.Replace(flag, " ", "", -1)
 		rep, err := strconv.ParseInt(flag, 10, 0)
