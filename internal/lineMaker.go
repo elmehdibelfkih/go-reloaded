@@ -13,8 +13,6 @@ func HandelLine(input *os.File, output *os.File) {
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		line := scanner.Text()
-		line = binHexHandler(line, " (bin)", 2)
-		line = binHexHandler(line, " (hex)", 16)
 		line = orderReplace(line)
 		line = anHandler(line)
 		line = punctuationsHandler(line)
@@ -23,20 +21,19 @@ func HandelLine(input *os.File, output *os.File) {
 	}
 }
 
-func binHexHandler(line string, mode string, base int) string {
-	index := strings.Index(line, mode)
-	for index != -1 {
-		word, start := pkg.PreviousWord(line, index)
-		intValue, err := strconv.ParseInt(word, base, 0)
-		if err == nil {
-			line = pkg.ReplaceAtIndex(line, word, strconv.Itoa(int(intValue)), start)
-			line = strings.Replace(line, mode, "", 1)
+func binHexHandler(line string, mode string, base int, index int) string {
+	word, start := pkg.PreviousWord(line, index)
+	intValue, err := strconv.ParseInt(word, base, 0)
+	if err == nil {
+		line = pkg.ReplaceAtIndex(line, word, strconv.Itoa(int(intValue)), start +1)
+		line = strings.Replace(line, mode, "", 1)
+		// println(line)
+		// os.Exit(0)
 
-		} else {
-			fmt.Println("Error:", err)
-			return line
-		}
-		index = strings.Index(line, mode)
+	} else {
+		fmt.Println("Error:", err)
+		line = strings.Replace(line, mode, "", 1)
+		return line
 	}
 	return line
 }
@@ -71,7 +68,7 @@ func punctuationsHandler(line string) string {
 					ret += " "
 				}
 				ret += string(c)
-				
+
 			}
 		}
 	}

@@ -66,22 +66,52 @@ func ValideFlagIndex(line string, subster string) int {
 }
 
 func orderReplace(line string) string {
-	up := ValideFlagIndex(line, " (up")
-	low := ValideFlagIndex(line, " (low")
-	cap := ValideFlagIndex(line, " (cap")
-	for up != -1 || low != -1 || cap != -1 {
-		if up != -1 && (up <= low || low == -1) && (up <= cap || cap == -1) {
-			line = flagHandler(line, up, "up", strings.ToUpper)
-		} else if low != -1 && (low <= up || up == -1) && (low <= cap || cap == -1) {
-			line = flagHandler(line, low, "low", strings.ToLower)
-		} else if cap != -1 {
-			line = flagHandler(line, cap, "cap", pkg.CapWord)
+	for {
+		up := ValideFlagIndex(line, " (up")
+		low := ValideFlagIndex(line, " (low")
+		cap := ValideFlagIndex(line, " (cap")
+		bin := strings.Index(line, " (bin)")
+		hex := strings.Index(line, " (hex)")
+		smallest := -1
+		flag := ""
+
+		if up != -1 && (smallest == -1 || up < smallest) {
+			smallest = up
+			flag = "up"
 		}
-		line = binHexHandler(line, " (bin)", 2)
-		line = binHexHandler(line, " (hex)", 16)
-		up = ValideFlagIndex(line, " (up")
-		low = ValideFlagIndex(line, " (low")
-		cap = ValideFlagIndex(line, " (cap")
+		if low != -1 && (smallest == -1 || low < smallest) {
+			smallest = low
+			flag = "low"
+		}
+		if cap != -1 && (smallest == -1 || cap < smallest) {
+			smallest = cap
+			flag = "cap"
+		}
+		if bin != -1 && (smallest == -1 || bin < smallest) {
+			smallest = bin
+			flag = "bin"
+		}
+		if hex != -1 && (smallest == -1 || hex < smallest) {
+			smallest = hex
+			flag = "hex"
+		}
+		if smallest == -1 {
+			break
+		}
+		switch flag {
+		case "up":
+			line = flagHandler(line, smallest, "up", strings.ToUpper)
+		case "low":
+			line = flagHandler(line, smallest, "low",  strings.ToUpper)
+		case "cap":
+			line = flagHandler(line, smallest, "cap", pkg.CapWord)
+		case "bin":
+			line = binHexHandler(line, " (bin)", 2, bin)
+		case "hex":
+			line = binHexHandler(line, " (hex)", 16, hex)
+		}
+		println(flag)
+		println(line)
 	}
 	return line
 }
