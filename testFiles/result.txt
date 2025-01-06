@@ -1,0 +1,83 @@
+an an an an an An h
+(low, 4).
+😎.
+😜 (up,, 11)
+Hahahaha🤣
+tahada khdam ((up))
+whada tahwa  ()
+Êêêêêêêêê🤣êêêêêêêêêêêêêêêê
+ë with diaeresis
+Ë with  (low, 9, 9)
+'c''__:' ghda l3id (bin )
+'' g,, s, s, s,
+tset. ERTS. FD'SGSG. ER'EER. erer
+tset. erts. FD'SGSG. ER'EER. erer
+HH
+'multiple,' 'wor'ds 'in quotes'.
+'' 'empty quotes
+;; '' 'k
+méhdi qsd QSQSD QSDQDSÉDQD QQSDQSDQSD QQSDQSDD 
+qsd qsqsd qsdqdsédqd qqsdqsdqsd qqsdqsdd
+I was sitting over There, '(' (low,, 2) ')'    and then,,!!
+1E (hex, 3) files were added to 10 🤓 folders
+This text has no Modifications
+LET'S TEST multiple spaces
+How about (low, 0) zero or (up, -1) negative numbers?
+NESTED MODIFICATIONS: should this work?
+Incomplete modifiers: (up ( )
+Mixed case HEX: 6719 should be converted
+An untold story about an hour and an herb
+Punctuation madness: Wh
+at??!?...,.;: 'test' 's
+That's not how'quotes'work but'let's'see
+(up, 9999) will this try to modify more words than exist?
+178956970 very long binary
+10000000000000000 very long hex
+an e i o u h An E I O U H testing 'a' vs 'an'
+''empty quotes 
+'multiple words in quotes'
+(cap, 2) at the end OF An SENTENCE. at the start of an sentence.
+This is SO EXCITING!
+Multiple. Sentences. With. Weird. Spacing.
+This text has (imaginary) modifiers (hello) (WORLD)
+m;; '\'dl bf';; \'v'r, ef',; l,; Nkjnjnn  2  dekjp(up, 22)
+'' 'empty quotes
+'multiple' 'wor'ds 'in quotes'.
+(cap, 2) at the end OF An SENTENCE. at the start of an sentence.
+This is SO EXCITING!
+Multiple. Sentences. With. Weird. Spacing.
+This text has (imaginary) modifiers (hello) (WORLD)
+'"Don't outcome it it's an aaa an à éé é àà larm' '
+''    '
+package main
+
+import (
+	"fmt"
+	"go-reloaded/internal"
+	"os"
+)
+
+func main() {
+	filesName: = os. Args[1: ]
+	if len(filesName)! = 2 {
+		fmt. Println("Error: program args must be 2")
+		return
+	}
+	input, err: = os. Open(filesName[0])
+	if err! = nil {
+		fmt. Println("Error: ", err)
+		return
+	}
+	defer input. Close()
+	if filesName[0] == filesName[1] {
+		fmt. Println("Error: the input must be different from the output")
+		return
+	}
+	output, err: = os. Create(filesName[1])
+	if err! = nil {
+		fmt. Println("Error: ", err)
+		return
+	}
+	defer output. Close()
+	internal. HandelLine(input, output)
+}

@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"go-reloaded/internal"
 	"os"
+	"time"
 )
 
 func main() {
+	start := time.Now()
 	filesName := os.Args[1:]
 	if len(filesName) != 2 {
 		fmt.Println("Error: program args must be 2")
@@ -29,4 +31,6 @@ func main() {
 	}
 	defer output.Close()
 	internal.HandelLine(input, output)
+	duration := time.Since(start)
+	fmt.Println("execution time:", duration)
 }

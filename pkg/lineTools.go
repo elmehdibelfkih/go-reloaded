@@ -39,7 +39,7 @@ func CapWord(word string) string {
 		return ""
 	}
 	new := []rune(strings.ToLower(word))
-	new[0] = rune(strings.ToUpper(string(new[0]))[0])
+	new[0] = []rune(strings.ToUpper(string(new[0])))[0]
 	return string(new)
 }
 
@@ -63,7 +63,6 @@ func RuneIndex(s string, target string) int {
 	if len(targetRunes) == 0 {
 		return -1
 	}
-
 	for i := 0; i <= len(runes)-len(targetRunes); i++ {
 		match := true
 		for j := 0; j < len(targetRunes); j++ {
