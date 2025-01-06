@@ -10,9 +10,10 @@ const maxFlagLen = 15
 
 func parsFlag(line string, mode string, start int) (err bool, rep int, rm string) {
 	var end int
-	line = line[start:]
+	runes := []rune(line)
+	runes = runes[start:]
 	limeter := 0
-	for i, c := range line {
+	for i, c := range runes {
 		limeter++
 		if c == ')' {
 			end = i
@@ -26,24 +27,24 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 		return true, 0, ""
 	}
 
-	flag := line[0 : end+1]
+	flag := runes[0 : end+1]
 	rmv := flag
 	flag = flag[len(mode)+2:]
 	flag = flag[:len(flag)-1]
-	if flag == "" {
-		return false, 1, rmv
+	if string(flag) == "" {
+		return false, 1, string(rmv)
 	}
-	if strings.Contains(flag, ",") {
-		if strings.Count(flag, ",") != 1 {
+	if strings.Contains(string(flag), ",") {
+		if strings.Count(string(flag), ",") != 1 {
 			return true, 0, ""
 		}
-		flag = strings.TrimLeft(flag, ",")
-		flag = strings.Replace(flag, " ", "", -1)
-		rep, err := strconv.ParseInt(flag, 10, 0)
-		if flag == "" || err != nil || rep <= 0 {
+		flag = []rune(strings.TrimLeft(string(flag), ","))
+		flag = []rune(strings.Replace(string(flag), " ", "", -1))
+		rep, err := strconv.ParseInt(string(flag), 10, 0)
+		if string(flag) == "" || err != nil || rep <= 0 {
 			return true, 0, ""
 		}
-		return false, int(rep), rmv
+		return false, int(rep), string(rmv)
 	}
 	return true, 0, ""
 }
@@ -51,7 +52,7 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 func ValideFlagIndex(line string, subster string) int {
 	var ret string
 
-	index := strings.Index(line, subster)
+	index := pkg.RuneIndex(line, subster)
 	for index != -1 {
 		err, _, _ := parsFlag(line, subster[2:], index)
 		if err {
@@ -60,7 +61,7 @@ func ValideFlagIndex(line string, subster string) int {
 		} else {
 			return index + len(ret)
 		}
-		index = strings.Index(line, subster)
+		index = pkg.RuneIndex(line, subster)
 	}
 	return -1
 }
@@ -70,8 +71,8 @@ func orderReplace(line string) string {
 		up := ValideFlagIndex(line, " (up")
 		low := ValideFlagIndex(line, " (low")
 		cap := ValideFlagIndex(line, " (cap")
-		bin := strings.Index(line, " (bin)")
-		hex := strings.Index(line, " (hex)")
+		bin := pkg.RuneIndex(line, " (bin)")
+		hex := pkg.RuneIndex(line, " (hex)")
 		smallest := -1
 		flag := ""
 
@@ -102,7 +103,7 @@ func orderReplace(line string) string {
 		case "up":
 			line = flagHandler(line, smallest, "up", strings.ToUpper)
 		case "low":
-			line = flagHandler(line, smallest, "low",  strings.ToUpper)
+			line = flagHandler(line, smallest, "low", strings.ToLower)
 		case "cap":
 			line = flagHandler(line, smallest, "cap", pkg.CapWord)
 		case "bin":
@@ -110,8 +111,6 @@ func orderReplace(line string) string {
 		case "hex":
 			line = binHexHandler(line, " (hex)", 16, hex)
 		}
-		println(flag)
-		println(line)
 	}
 	return line
 }

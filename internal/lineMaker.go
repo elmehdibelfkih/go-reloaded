@@ -22,14 +22,12 @@ func HandelLine(input *os.File, output *os.File) {
 }
 
 func binHexHandler(line string, mode string, base int, index int) string {
+
 	word, start := pkg.PreviousWord(line, index)
 	intValue, err := strconv.ParseInt(word, base, 0)
 	if err == nil {
-		line = pkg.ReplaceAtIndex(line, word, strconv.Itoa(int(intValue)), start +1)
+		line = pkg.ReplaceAtIndex(line, word, strconv.Itoa(int(intValue)), start)
 		line = strings.Replace(line, mode, "", 1)
-		// println(line)
-		// os.Exit(0)
-
 	} else {
 		fmt.Println("Error:", err)
 		line = strings.Replace(line, mode, "", 1)

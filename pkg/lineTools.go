@@ -1,31 +1,37 @@
 package pkg
 
 import (
-	// "os"
 	"strings"
 )
 
 func PreviousWord(line string, index int) (string, int) {
 	runes := []rune(line)
-	if index == 0 {
+	if index <= 0 || index > len(runes) {
 		return "", 0
 	}
-	for index != 0 && strings.Contains(`.!?,:; `, string(runes[index-1])) {
-		index--
-	}
-	if index == 0 {
-		return "", 0
-	}
-	i := index
-	for i != 0 && !strings.Contains(`.!?,:; `, string(runes[i-1])) {
+	i := index - 1
+	for i >= 0 && strings.ContainsRune(`.!?,:; `, runes[i]) {
 		i--
 	}
-	return string(runes[i:index]), i
+	if i < 0 {
+		return "", 0
+	}
+	end := i + 1
+	for i >= 0 && !strings.ContainsRune(`.!?,:; `, runes[i]) {
+		i--
+	}
+	start := i + 1
+	return string(runes[start:end]), start
 }
 
-
 func ReplaceAtIndex(line string, old string, new string, index int) string {
-	return line[0:index] + new + line[index+len(old):]
+	runes := []rune(line)
+	oldRunes := []rune(old)
+	newRunes := []rune(new)
+	if index < 0 || index+len(oldRunes) > len(runes) || string(runes[index:index+len(oldRunes)]) != old {
+		return line
+	}
+	return string(runes[:index]) + string(newRunes) + string(runes[index+len(oldRunes):])
 }
 
 func CapWord(word string) string {
@@ -47,5 +53,28 @@ func NextWord(index int, line string) string {
 	for i != len(runes)-1 && !strings.Contains(`.!?,:; `, string(runes[i])) {
 		i++
 	}
-	return line[index:i]
+	return string(runes[index:i])
+}
+
+func RuneIndex(s string, target string) int {
+	runes := []rune(s)
+	targetRunes := []rune(target)
+
+	if len(targetRunes) == 0 {
+		return -1
+	}
+
+	for i := 0; i <= len(runes)-len(targetRunes); i++ {
+		match := true
+		for j := 0; j < len(targetRunes); j++ {
+			if runes[i+j] != targetRunes[j] {
+				match = false
+				break
+			}
+		}
+		if match {
+			return i
+		}
+	}
+	return -1
 }
