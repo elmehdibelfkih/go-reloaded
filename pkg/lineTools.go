@@ -45,7 +45,9 @@ func CapWord(word string) string {
 
 func NextWord(index int, line string) string {
 	runes := []rune(line)
-
+	for index != len(runes)-1 && !strings.Contains(`.!?,:; `, string(runes[index])) {
+		index++
+	}
 	for index != len(runes)-1 && strings.Contains(`.!?,:; `, string(runes[index])) {
 		index++
 	}
@@ -53,7 +55,7 @@ func NextWord(index int, line string) string {
 	for i != len(runes)-1 && !strings.Contains(`.!?,:; `, string(runes[i])) {
 		i++
 	}
-	return string(runes[index:i])
+	return string(runes[index : i+1])
 }
 
 func RuneIndex(s string, target string) int {

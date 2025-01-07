@@ -106,21 +106,22 @@ func quoteHandler(line string) string {
 }
 
 func anHandler(line string) string {
-	for i := 0; i < len(line); i++ {
-		if line[i] == 'a' || line[i] == 'A' {
-			if i != len(line)-1 && strings.Contains(`.!?,:; `, string(line[i+1])) {
-				if i == 0 || (i != 0 && strings.Contains(`.!?,:; `, string(line[i-1]))) {
-					next := pkg.NextWord(i, line)
+	runes := []rune(line)
+	for i := 0; i < len(runes); i++ {
+		if runes[i] == 'a' || runes[i] == 'A' {
+			if i != len(runes)-1 && strings.Contains(`.!?,:; `, string(runes[i+1])) {
+				if i == 0 || (i != 0 && strings.Contains(`.!?,:; `, string(runes[i-1]))) {
+					next := pkg.NextWord(i, string(runes))
 					if next != "" && strings.Contains(`aeiouAEIOUhH`, string(next[0])) {
-						if line[i] == 'a' {
-							line = pkg.ReplaceAtIndex(line, "a", "an", i)
+						if runes[i] == 'a' {
+							runes = []rune(pkg.ReplaceAtIndex(string(runes), "a", "an", i))
 						} else {
-							line = pkg.ReplaceAtIndex(line, "A", "An", i)
+							runes = []rune(pkg.ReplaceAtIndex(string(runes), "A", "An", i))
 						}
 					}
 				}
 			}
 		}
 	}
-	return line
+	return string(runes)
 }

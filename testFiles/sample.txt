@@ -1,11 +1,12 @@
  (up,1)a a a a a A h
+aa a a a aaa a a a aa , .. ; ' (up   ,   2  ) 'a aa Ê*Ê*Ê*Ê*Ê🤣Ê=Ê+Ê-Ê^Ê a a|a a
 (low, 1000000 (bin) (hex) (bin)).
 😎 (low, 1000000 (bin) (hex) (bin)).
 😜 (up,, 11)
 hahahaha🤣 (cap)
 tahada khdam ((up))
 whada tahwa  ( (up))
-ÊÊÊÊÊÊÊÊÊ🤣ÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊ (cap, 12)
+Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê🤣Ê. Ê  .Ê  .Ê.   (cap, 12)
 Ë with diaeresis (low, 222222)
 Ë with  (low, 9,9)
 '      c      ''__:' ghda l3id (bin) (bin) (bin )
@@ -15,69 +16,49 @@ tset. erts. FD'SGSG. ER'EER. erer
 hh (up, 33      )
 ' multiple, ' ' wor'ds 'in quotes '.
 '       ' '  empty quotes
+ول موقع يسمح(very) 101010 (bin) لزواره الكرام  (up, 12)بتحويل الكتابة العربي الى كتابة مفهومة
+ اول موقع يسمح لزواره الكرام بتحويل 101010 (bin) الكتابة العربي الى كتابة مفهومة 
+
 ;;'      ' '      k
 méhdi qsd qsQSD QSDQDSÉdqd qQSDQSDQSD qQSDQSDd (up, 1000000 (bin) (hex) (bin)) 
 qsd qsQSD QSDQDSÉdqd qQSDQSDQSD qQSDQSDd (low, 1000)
 I was sitting over There  ,    ' ( ' (low,, 2) ') '    and then , , !!
 1E (hex, 3) files were added to 10 🤓 (bin) folders
 This text has no modifications (up) (low) (cap) (hex) (bin)
+
 Let's test (up,   3) multiple spaces
+
 How about (low,0) zero or (up,-1) negative numbers?
-Nested modifications: (up, 2 (low, 1)) should this work?
+Nested ❇️ modifications: (up, 2ffff2 (hex) 🤏🏼 (low, 1)) should this work?
 Incomplete modifiers: (Up (low) ( )
+
 Mixed case HEX: 1a3f (hex) should be converted
-A untold story about a hour and a herb
+
+A untold story about a ho🍽ur and a herb
+（书、杂志等中区别于图片的）正文，文字材料 (low, 3)（书、杂志等中区别于图片的）正文，文字材料 (cap, 2)
 Punctuation madness: Wh
 at ?? !? ... ,. ; : ' test ' 's
 That's not how'quotes'work but'let's'see
-(up,9999) will this try to modify more words than exist?
+(up,9999) will this try to 🥎modify more words than exist?
 1010101010101010101010101010 (bin) very long binary
 10000000000000000 (hex) very long hex
 a e i o u h A E I O U H testing 'a' vs 'an'
 ''empty quotes 
 ' multiple words in quotes '
-(cap, 2) at the end of a sentence. (up, 3) at the start of a sentence.
 This is so exciting (up, 2) !
 Multiple. Sentences . With    . Weird . Spacing   .
 This text has (imaginary) modifiers (hello) (world) (up)
-m;;'\'dl bf';;\'v'r, ef',;l,;Nkjnjnn  2  (up) dekjp(up, 22)
-'       ' ' empty quotes
+m;;'\'dl bf';;\'v'r, ef',;l,;Nkj🐲njnn  2  (up) dekjp(up, 22)
+'     🤓  ' ' empty quotes
 ' multiple' ' wor'ds 'in quotes '.
 (cap, 2) at the end of a sentence. (up, 3) at the start of a sentence.
 This is so exciting (up, 2) !
-Multiple. Sentences . With    . Weird . Spacing   .
-This text has (imaginary) modifiers (hello) (world) (up)
 '  "Don't outcome it it's a aaa a à éé é àà larm ' '
 '                '    '
 package main
 
 import (
-	"fmt"
-	"go-reloaded/internal"
-	"os"
+	"fmt"🌚
+	"go-reloaded/internal"🌍
+	"os"🦔
 )
-
-func main() {
-	filesName := os.Args[1:]
-	if len(filesName) != 2 {
-		fmt.Println("Error: program args must be 2")
-		return
-	}
-	input, err := os.Open(filesName[0])
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	defer input.Close()
-	if filesName[0] == filesName[1] {
-		fmt.Println("Error: the input must be different from the output")
-		return
-	}
-	output, err := os.Create(filesName[1])
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	defer output.Close()
-	internal.HandelLine(input, output)
-}
