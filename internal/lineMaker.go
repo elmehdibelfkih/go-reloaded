@@ -28,7 +28,7 @@ func binHexHandler(line string, mode string, base int, index int) string {
 		line = pkg.ReplaceAtIndex(line, word, strconv.Itoa(int(intValue)), start)
 		line = strings.Replace(line, mode, "", 1)
 	} else {
-		fmt.Fprintf(os.Stderr, "Error: %v", err)
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		line = strings.Replace(line, mode, "", 1)
 		return line
 	}

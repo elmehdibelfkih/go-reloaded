@@ -1,12 +1,12 @@
- (up,1)a a a a a A h
-aa a a a aaa a a a aa , .. ; ' (up   ,   2  ) 'a aa Ê*Ê*Ê*Ê*Ê🤣Ê=Ê+Ê-Ê^Ê a a|a a
+ (up,1)a a a a a A h 🇲🇦 (up) => 🐦‍🔥
+aa a a a aaa a a a aa , .. ; ' (up   ,   2  ) 'a aa Ê*Ê*Ê*Ê*Ê🤣Ê=Ê+Ê-Ê^Ê a a|a a a
 (low, 1000000 (bin) (hex) (bin)).
 😎 (low, 1000000 (bin) (hex) (bin)).
 😜 (up,, 11)
 hahahaha🤣 (cap)
 tahada khdam ((up))
 whada tahwa  ( (up))
-Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê🤣Ê. Ê  .Ê  .Ê.   (cap, 12)
+Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê杂Ê🤣Ê. Ê  .Ê  .Ê.   (cap, 12) ♨️
 Ë with diaeresis (low, 222222)
 Ë with  (low, 9,9)
 '      c      ''__:' ghda l3id (bin) (bin) (bin )
@@ -14,7 +14,7 @@ whada tahwa  ( (up))
 tset.erts.fd'sgsg.er'eer.erer (up, 1000000 (bin) (hex) (bin)) (low)
 tset. erts. FD'SGSG. ER'EER. erer
 hh (up, 33      )
-' multiple, ' ' wor'ds 'in quotes '.
+' multiple, ' ' wor'ds 'in quotes '. 𓀒𓀒𓀒𓀒𓀒𓀒 ;;;;'  𓀒𓀒 '''
 '       ' '  empty quotes
 ول موقع يسمح(very) 101010 (bin) لزواره الكرام  (up, 12)بتحويل الكتابة العربي الى كتابة مفهومة
  اول موقع يسمح لزواره الكرام بتحويل 101010 (bin) الكتابة العربي الى كتابة مفهومة 
@@ -33,7 +33,8 @@ Nested ❇️ modifications: (up, 2ffff2 (hex) 🤏🏼 (low, 1)) should this wo
 Incomplete modifiers: (Up (low) ( )
 
 Mixed case HEX: 1a3f (hex) should be converted
-
+; . , ' a h 🧠  '' ' ' ' ' d uoy (*)(*)
+                            
 A untold story about a ho🍽ur and a herb
 （书、杂志等中区别于图片的）正文，文字材料 (low, 3)（书、杂志等中区别于图片的）正文，文字材料 (cap, 2)
 Punctuation madness: Wh
@@ -43,6 +44,8 @@ That's not how'quotes'work but'let's'see
 1010101010101010101010101010 (bin) very long binary
 10000000000000000 (hex) very long hex
 a e i o u h A E I O U H testing 'a' vs 'an'
+(👀)
+
 ''empty quotes 
 ' multiple words in quotes '
 This is so exciting (up, 2) !
@@ -54,11 +57,14 @@ m;;'\'dl bf';;\'v'r, ef',;l,;Nkj🐲njnn  2  (up) dekjp(up, 22)
 (cap, 2) at the end of a sentence. (up, 3) at the start of a sentence.
 This is so exciting (up, 2) !
 '  "Don't outcome it it's a aaa a à éé é àà larm ' '
-'                '    '
-package main
-
+'\1\2\2\2';3,mn32'    '````````````  ```````````' 👑👑👑👑👑
+.b.f;s!d.s.n?.s;s.s;s;a.q!,d,ss.       👑👑👑👑👑
+(binin)    101010l0 (bin)  11111  (hex) 0 (bin) (bin) (hex) mahada yahada    |(👁)'                   '(👁)|
+                                            '                                '  \   👃   /
+                                                |   🫦   |
+                                '                 '               \______/
 import (
-	"fmt"🌚
-	"go-reloaded/internal"🌍
-	"os"🦔
+    "fmt"🌚
+    "go-reloaded/internal"🌍
+    "os"🦔
 )
