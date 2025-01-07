@@ -22,14 +22,13 @@ func HandelLine(input *os.File, output *os.File) {
 }
 
 func binHexHandler(line string, mode string, base int, index int) string {
-
 	word, start := pkg.PreviousWord(line, index)
 	intValue, err := strconv.ParseInt(word, base, 0)
 	if err == nil {
 		line = pkg.ReplaceAtIndex(line, word, strconv.Itoa(int(intValue)), start)
 		line = strings.Replace(line, mode, "", 1)
 	} else {
-		fmt.Println("Error:", err)
+		fmt.Fprintf(os.Stderr, "Error: %v", err)
 		line = strings.Replace(line, mode, "", 1)
 		return line
 	}
@@ -38,7 +37,6 @@ func binHexHandler(line string, mode string, base int, index int) string {
 
 func flagHandler(line string, index int, mode string, opp func(string) string) string {
 	_, rep, rm := parsFlag(line, mode, index)
-
 	for ; rep != 0; rep-- {
 		word, start := pkg.PreviousWord(line, index)
 		line = pkg.ReplaceAtIndex(line, word, opp(word), start)
@@ -66,7 +64,6 @@ func punctuationsHandler(line string) string {
 					ret += " "
 				}
 				ret += string(c)
-
 			}
 		}
 	}
@@ -84,7 +81,6 @@ func quoteHandler(line string) string {
 	if quoteCounter%2 != 0 {
 		quoteCounter--
 	}
-
 	for _, c := range line {
 		if c == '\'' && quoteCounter%2 == 0 {
 			firstQuote = true

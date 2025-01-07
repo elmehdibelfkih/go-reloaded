@@ -26,7 +26,6 @@ func parsFlag(line string, mode string, start int) (err bool, rep int, rm string
 	if end == 0 {
 		return true, 0, ""
 	}
-
 	flag := runes[0 : end+1]
 	rmv := flag
 	flag = flag[len(mode)+2:]
@@ -75,7 +74,6 @@ func orderReplace(line string) string {
 		hex := pkg.RuneIndex(line, " (hex)")
 		smallest := -1
 		flag := ""
-
 		if up != -1 && (smallest == -1 || up < smallest) {
 			smallest = up
 			flag = "up"
